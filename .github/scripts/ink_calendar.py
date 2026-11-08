@@ -149,7 +149,7 @@ def render(pal, still: bool, total: int, weeks, G: Glyphs) -> str:
         f'<rect x="0.75" y="0.75" width="{W - 1.5}" height="{H - 1.5}" rx="21.5" fill="none" stroke="{pal["edge"]}" stroke-width="1.5"/>'
     )
 
-    # Header: 墨迹 in brush, then the numbers.
+    # Calendar title, then the numbers.
     title, _ = G.static("title", GX, 58)
     out.append(f'<g fill="{pal["ink"]}">{title}</g>')
     x = W - 132

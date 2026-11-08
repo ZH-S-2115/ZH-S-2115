@@ -3,10 +3,9 @@
 
     python3 design/build.py
 
-Theme: ink on rice paper. The hero writes the bio 每天进步一点点 into calligraphy
-practice squares (田字格), one character at a time, and closes with a cinnabar
-seal: progress made one stroke at a time. The AXIORA figure sends ink through
-the project's architecture. Everything is outlined (no font requests) and
+Theme: ink on rice paper. The hero writes ONE STEP into calligraphy practice
+squares, one letter at a time, and closes with a cinnabar seal. The AXIORA figure
+sends ink through the project's architecture. All lettering uses outlines and
 animated with SMIL, which GitHub's image proxy leaves intact. Each figure also
 gets a *-still.svg that the README's <picture> serves under prefers-reduced-motion.
 
@@ -17,8 +16,6 @@ Fonts (OFL, from github.com/google/fonts, saved into design/fonts/, not committe
   Fraunces.ttf        <- ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf
   FrauncesItalic.ttf  <- ofl/fraunces/Fraunces-Italic[SOFT,WONK,opsz,wght].ttf
   Mono.ttf            <- ofl/jetbrainsmono/JetBrainsMono[wght].ttf
-  MaShanZheng.ttf     <- ofl/mashanzheng/MaShanZheng-Regular.ttf
-  NotoSerifSC.ttf     <- ofl/notoserifsc/NotoSerifSC[wght].ttf
 Requires: pip install uharfbuzz fonttools
 """
 
@@ -33,7 +30,7 @@ import svgtext as ST
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
-# Paper, ink and cinnabar (朱砂), the three materials of a signed page.
+# Paper, ink and cinnabar, the three materials of a signed page.
 PALETTES = {
     "light": {
         "paper": "#F4EEE2",
@@ -117,9 +114,8 @@ def svg(w, h, pal, defs, body, label) -> str:
 
 # --------------------------------------------------------------------------- hero
 #
-# Two vertical columns, read right to left as in a hand-written scroll:
-#   每天进步 | 一点点 + seal
-# Each character sits in a 田字格 practice square and is revealed through a mask:
+# Two vertical columns read ONE and STEP, with the seal below ONE.
+# Each letter sits in a practice square and is revealed through a mask:
 # a wide brush sweeps across the square in three passes, its edge roughened by a
 # displacement filter so the ink looks absorbed rather than wiped on. When a
 # character finishes, a faint ring spreads from it like ink settling into paper.
@@ -128,9 +124,10 @@ HW, HH = 1280, 440
 CYCLE = 11.0  # seconds per loop
 CELL = 76.0  # practice-square size
 CH = 62.0  # character size
+MOTTO = "A little better every day."
 COLS = [  # (x of column centre, characters)
-    (1150.0, "每天进步"),
-    (1060.0, "一点点"),
+    (1060.0, "ONE"),
+    (1150.0, "STEP"),
 ]
 TOP = 36.0
 PITCH = 84.0
@@ -182,9 +179,9 @@ def hero(pal, still: bool) -> str:
     body.append(
         text("Building AXIORA, a self-hosted agent workbench.", 98, 292, 27, "serif-italic", SERIF_BODY, "ink2")
     )
-    body.append(text("每天进步一点点", 98, 362, 30, "brush", None, "ink"))
+    body.append(text(MOTTO, 98, 362, 30, "serif-italic", SERIF_BODY, "ink"))
     # A cinnabar brush stroke under the tagline, drawn once per cycle.
-    stroke = "M100 384 C170 379 250 381 330 386"
+    stroke = "M100 384 C202 379 304 381 410 386"
     if still:
         body.append(f'<path d="{stroke}" fill="none" stroke="{pal["cinnabar"]}" stroke-width="5" stroke-linecap="round"/>')
     else:
@@ -198,7 +195,7 @@ def hero(pal, still: bool) -> str:
 
     # Caption, bottom right.
     body.append(
-        text("一点一点，墨迹成字 · drop by drop, ink becomes words", 1188, 410, 15, "serif-italic", SERIF_BODY, "muted", anchor="end")
+        text("Drop by drop, ink becomes words", 1188, 410, 15, "serif-italic", SERIF_BODY, "muted", anchor="end")
     )
 
     # Practice squares.
@@ -208,7 +205,7 @@ def hero(pal, still: bool) -> str:
     # Characters, ripples, masks.
     chars, ripples = [], []
     for i, (ch, cx, cy) in enumerate(cells()):
-        d = ST.path(ch, cx, cy + CH * 0.36, CH, "brush", None, 0, "middle")
+        d = ST.path(ch, cx, cy + CH * 0.36, CH, "serif-italic", SERIF, 0, "middle")
         if still:
             chars.append(f'<path class="ink" d="{d}"/>')
             continue
@@ -242,15 +239,13 @@ def hero(pal, still: bool) -> str:
     body.append(f"<g>{''.join(ripples)}</g>")
     body.append(f"<g>{fade}{''.join(chars)}</g>")
 
-    # The seal (印章): a cinnabar square with 进步 carved out, stamped last.
+    # The cinnabar seal carries the initials and is stamped last.
     sx, sy, ss = 1060.0, TOP + 3 * PITCH + CELL / 2, 58.0
-    initials = ST.path("ZH", sx, sy + 23, 15, "serif", {"opsz": 14, "wght": 700, "SOFT": 0, "WONK": 0}, 1.5, "middle")
+    initials = ST.path("ZH", 0, 10, 28, "serif", {"opsz": 14, "wght": 700, "SOFT": 0, "WONK": 0}, 1.5, "middle")
     seal = (
         f'<rect x="{fmt(-ss / 2)}" y="{fmt(-ss / 2)}" width="{fmt(ss)}" height="{fmt(ss)}" rx="5" '
         f'fill="{pal["cinnabar"]}" filter="url(#bleed)"/>'
-        f'<g transform="translate({fmt(-sx)} {fmt(-sy)})">'
-        f'<path class="seal_text" d="{ST.path("进步", sx, sy + 4, 25, "sc", {"wght": 800}, 0, "middle")}"/>'
-        f'<path class="seal_text" d="{initials}" opacity="0.9"/></g>'
+        f'<path class="seal_text" d="{initials}" opacity="0.9"/>'
     )
     # Seal drawn around its own centre so the stamp can scale in place.
     if still:
@@ -267,8 +262,8 @@ def hero(pal, still: bool) -> str:
         )
 
     label = (
-        "ZHHHH, building AXIORA, a self-hosted agent workbench. The motto 每天进步一点点 "
-        "is brushed into calligraphy practice squares one character at a time and sealed in red."
+        f"ZHHHH, building AXIORA, a self-hosted agent workbench. {MOTTO} "
+        "The letters of ONE STEP fill the practice squares beside a red ZH seal."
     )
     return svg(HW, HH, pal, "".join(defs), "".join(body), label)
 
@@ -281,7 +276,7 @@ def hero(pal, still: bool) -> str:
 
 AW, AH = 1280, 470
 ACYCLE = 13.5
-ENTRIES = ["Web", "Desktop", "飞书", "Telegram", "QQ", "钉钉", "微信", "Discord", "WhatsApp"]
+ENTRIES = ["Web", "Desktop", "Feishu", "Telegram", "QQ", "DingTalk", "WeChat", "Discord", "WhatsApp"]
 EY0, EDY = 66.0, 41.0
 EDOT_X = 214.0
 BK = (390.0, 175.0, 250.0, 120.0)  # backend x, y, w, h
@@ -443,7 +438,7 @@ def axiora(pal, still: bool) -> str:
         f'<rect x="{fmt(bx + bw - 22)}" y="{fmt(by - 10)}" width="28" height="28" rx="3" fill="{pal["cinnabar"]}" '
         f'transform="rotate(6 {fmt(bx + bw - 8)} {fmt(by + 4)})"/>'
         f'<path class="seal_text" transform="rotate(6 {fmt(bx + bw - 8)} {fmt(by + 4)})" '
-        f'd="{ST.path("智", bx + bw - 8, by + 12, 20, "sc", {"wght": 800}, 0, "middle")}"/>'
+        f'd="{ST.path("A", bx + bw - 8, by + 11, 20, "serif", SERIF, 0, "middle")}"/>'
     )
     body.append(text("self-hosted backend", bx + bw / 2, by + bh + 28, 15, "serif-italic", SERIF_BODY, "muted", anchor="middle"))
 
@@ -488,11 +483,11 @@ GLYPH_SETS = {
     "label": ("0123456789,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ·-:", 14, "mono", MONO),
 }
 STATIC = {
-    "title": ("墨迹", 30, "brush", None),
+    "title": ("Ink Calendar", 30, "serif-italic", SERIF_BODY),
     "contributions": ("contributions in the last year", 18, "serif-italic", SERIF_BODY),
     "streak": ("day streak", 18, "serif-italic", SERIF_BODY),
     "longest": ("longest streak", 18, "serif-italic", SERIF_BODY),
-    "caption": ("每一个墨点是一天 · one ink dot per day", 14, "serif-italic", SERIF_BODY),
+    "caption": ("One ink dot per day", 14, "serif-italic", SERIF_BODY),
 }
 
 

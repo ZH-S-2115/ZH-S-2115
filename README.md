@@ -1,13 +1,13 @@
 <picture>
-  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark-still.svg" />
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light-still.svg" />
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark.svg" />
-  <img alt="ZHHHH, building AXIORA, a self-hosted agent workbench. The motto 每天进步一点点 is brushed into calligraphy practice squares one character at a time and sealed in red." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light.svg" />
+  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark-still.svg?v=english" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light-still.svg?v=english" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark.svg?v=english" />
+  <img alt="ZHHHH, building AXIORA, a self-hosted agent workbench. A little better every day. The letters of ONE STEP fill the practice squares beside a red ZH seal." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light.svg?v=english" />
 </picture>
 
 <p align="center">
   <a href="https://github.com/ZH-S-2115/AXIORA"><img alt="Featured: AXIORA" src="https://img.shields.io/badge/Featured-AXIORA-B5382A?style=flat-square&logo=electron&logoColor=white" /></a>
-  <a href="https://github.com/ZH-S-2115/AXIORA/tree/main/portfolio"><img alt="AI PM 作品集" src="https://img.shields.io/badge/AI%20PM-%E4%BD%9C%E5%93%81%E9%9B%86-1E1C19?style=flat-square" /></a>
+  <a href="https://github.com/ZH-S-2115/AXIORA/tree/main/portfolio"><img alt="AI PM Portfolio" src="https://img.shields.io/badge/AI%20PM-Portfolio-1E1C19?style=flat-square" /></a>
 </p>
 
 A little better every day.
@@ -21,10 +21,10 @@ A little better every day.
 ### [AXIORA](https://github.com/ZH-S-2115/AXIORA)，自托管的多渠道智能体工作台
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-dark-still.svg" />
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-light-still.svg" />
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-dark.svg" />
-  <img alt="Messages from Web, Desktop, Feishu, Telegram, QQ, DingTalk, WeChat, Discord and WhatsApp flow into the AXIORA backend, through the Workspace, Capability or Channel registry, into the Pi Agent Runner on the host or in Docker, and the reply flows back to where the message came from." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-light.svg" />
+  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-dark-still.svg?v=english" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-light-still.svg?v=english" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-dark.svg?v=english" />
+  <img alt="Messages from Web, Desktop, Feishu, Telegram, QQ, DingTalk, WeChat, Discord and WhatsApp flow into the AXIORA backend, through the Workspace, Capability or Channel registry, into the Pi Agent Runner on the host or in Docker, and the reply flows back to where the message came from." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/axiora-light.svg?v=english" />
 </picture>
 
 聊天界面让你向 Agent 提问；AXIORA 让 Agent 拥有长期运行的工作区、可审计的能力边界，以及 Web、桌面端和消息渠道共用的运行时。
@@ -40,10 +40,10 @@ A little better every day.
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-dark-still.svg" />
-    <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-light-still.svg" />
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-dark.svg" />
-    <img alt="My contribution calendar for the last year, drawn as one ink drop per day." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-light.svg" />
+    <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-dark-still.svg?v=english" />
+    <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-light-still.svg?v=english" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-dark.svg?v=english" />
+    <img alt="My contribution calendar for the last year, drawn as one ink drop per day." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/ink-light.svg?v=english" />
   </picture>
 </p>
 
