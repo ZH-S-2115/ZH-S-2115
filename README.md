@@ -1,8 +1,8 @@
 <picture>
-  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark-still.svg?v=english" />
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light-still.svg?v=english" />
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark.svg?v=english" />
-  <img alt="ZHHHH, building AXIORA, a self-hosted agent workbench. A little better every day. The letters of ONE STEP fill the practice squares beside a red ZH seal." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light.svg?v=english" />
+  <source media="(prefers-color-scheme: dark) and (prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark-still.svg?v=zh-brush" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light-still.svg?v=zh-brush" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-dark.svg?v=zh-brush" />
+  <img alt="ZH in brush calligraphy. Building AXIORA, a self-hosted agent workbench. A little better every day. The letters of ONE STEP fill the practice squares beside a red ZH seal." src="https://raw.githubusercontent.com/ZH-S-2115/ZH-S-2115/main/assets/hero-light.svg?v=zh-brush" />
 </picture>
 
 <p align="center">

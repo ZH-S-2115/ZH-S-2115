@@ -3,8 +3,8 @@
 
     python3 design/build.py
 
-Theme: ink on rice paper. The hero writes ONE STEP into calligraphy practice
-squares, one letter at a time, and closes with a cinnabar seal. The AXIORA figure
+Theme: ink on rice paper. The hero writes the ZH signature and fills the ONE STEP
+practice squares, then closes with a cinnabar seal. The AXIORA figure
 sends ink through the project's architecture. All lettering uses outlines and
 animated with SMIL, which GitHub's image proxy leaves intact. Each figure also
 gets a *-still.svg that the README's <picture> serves under prefers-reduced-motion.
@@ -135,9 +135,76 @@ T0, DT, WRITE = 0.6, 0.62, 0.5  # first char start, gap between chars, write tim
 SEAL_AT = T0 + DT * 7 + 0.15
 FADE = (0.91, 0.965)  # share of the cycle where the page clears
 
+# Each signature stroke pairs a pressure-shaped outline with its pen trajectory
+# and finishing time. Both themes and the static version use the same outlines.
+SIGNATURE = (
+    (
+        "M91 169 C95 152 115 138 147 134 C191 127 235 137 272 119 "
+        "C282 114 289 117 285 126 C268 147 224 169 188 192 "
+        "C164 207 145 223 133 237 C157 232 181 230 205 234 "
+        "C233 239 260 238 288 224 C267 246 240 255 209 252 "
+        "C176 249 150 246 120 257 C109 261 102 255 109 245 "
+        "C139 200 216 161 257 134 C219 147 183 140 149 143 "
+        "C121 145 101 155 91 169 Z",
+        "M91 169 C101 148 125 141 149 139 C196 132 238 143 282 120 "
+        "C243 158 154 193 115 252 C156 236 177 241 209 243 C240 248 269 238 288 224",
+        1.24,
+    ),
+    (
+        "M299 166 C306 148 331 126 354 119 C367 115 377 119 371 130 "
+        "C351 162 328 193 312 225 C305 240 307 249 317 251 "
+        "C299 257 288 245 296 226 C310 194 339 157 357 131 "
+        "C334 135 313 147 299 166 Z",
+        "M299 166 C316 139 348 123 366 124 C347 155 313 202 304 229 "
+        "C298 244 303 250 317 251",
+        1.83,
+    ),
+    (
+        "M444 154 C455 138 474 121 489 116 C503 111 510 118 501 131 "
+        "C474 169 444 198 426 224 C415 240 420 246 435 247 "
+        "C461 247 498 236 532 215 C507 240 472 255 437 259 "
+        "C412 262 395 251 408 229 C426 198 461 159 488 126 "
+        "C470 130 456 142 444 154 Z",
+        "M444 154 C465 130 491 115 498 121 C486 144 438 194 417 230 "
+        "C406 247 420 254 436 253 C472 251 508 234 532 215",
+        2.58,
+    ),
+    (
+        "M275 215 C310 193 372 179 426 176 C448 175 463 174 478 168 "
+        "C467 179 450 184 425 187 C365 192 318 197 275 215 Z",
+        "M275 215 C310 196 370 186 426 181 C447 179 465 178 478 168",
+        3.03,
+    ),
+)
+
 
 def kt(t: float) -> str:
     return f"{t / CYCLE:.4f}"
+
+
+def signature(still: bool) -> tuple[str, str]:
+    defs, strokes = [], []
+    start = 0.18
+    for i, (outline, trace, end) in enumerate(SIGNATURE):
+        if still:
+            strokes.append(f'<path d="{outline}"/>')
+            continue
+        mask_id = f"signature-{i}"
+        defs.append(
+            f'<mask id="{mask_id}" maskUnits="userSpaceOnUse" x="0" y="0" width="{HW}" height="{HH}">'
+            f'<path d="{trace}" fill="none" stroke="#fff" stroke-width="36" stroke-linecap="round" '
+            f'stroke-linejoin="round" pathLength="1" stroke-dasharray="1 2" stroke-dashoffset="1.1">'
+            f'<animate attributeName="stroke-dashoffset" dur="{fmt(CYCLE)}s" repeatCount="indefinite" '
+            f'keyTimes="0;{kt(start)};{kt(end)};1" values="1.1;1.1;0;0"/></path></mask>'
+        )
+        strokes.append(f'<path d="{outline}" mask="url(#{mask_id})"/>')
+        start = end
+    if not still:
+        strokes.append(
+            f'<animate attributeName="opacity" dur="{fmt(CYCLE)}s" repeatCount="indefinite" '
+            f'keyTimes="0;{FADE[0]};{FADE[1]};1" values="1;1;0;0"/>'
+        )
+    return "".join(defs), f'<g class="ink">{"".join(strokes)}</g>'
 
 
 def cells():
@@ -175,7 +242,9 @@ def hero(pal, still: bool) -> str:
 
     # Left: name, line, tagline.
     body.append(text("ZH-S-2115", 98, 112, 17, "mono", MONO, "muted", tracking=3.2))
-    body.append(text("ZHHHH", 92, 236, 136, "serif", SERIF, "ink"))
+    signature_defs, signature_body = signature(still)
+    defs.append(signature_defs)
+    body.append(signature_body)
     body.append(
         text("Building AXIORA, a self-hosted agent workbench.", 98, 292, 27, "serif-italic", SERIF_BODY, "ink2")
     )
@@ -262,7 +331,7 @@ def hero(pal, still: bool) -> str:
         )
 
     label = (
-        f"ZHHHH, building AXIORA, a self-hosted agent workbench. {MOTTO} "
+        f"ZH in brush calligraphy. Building AXIORA, a self-hosted agent workbench. {MOTTO} "
         "The letters of ONE STEP fill the practice squares beside a red ZH seal."
     )
     return svg(HW, HH, pal, "".join(defs), "".join(body), label)
