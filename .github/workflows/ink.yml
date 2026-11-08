@@ -1,0 +1,45 @@
+name: ink calendar
+
+# 每天把贡献图重画成宣纸上的墨点（.github/scripts/ink_calendar.py），提交回 assets/。
+# 只用标准库和 assets/glyphs.json，CI 不需要字体文件。
+# 手动触发：Actions → ink calendar → Run workflow
+on:
+  schedule:
+    - cron: "41 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ink-calendar
+  cancel-in-progress: true
+
+jobs:
+  ink:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Draw the calendar
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_OWNER: ${{ github.repository_owner }}
+        run: python3 .github/scripts/ink_calendar.py
+
+      - name: Commit if it changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- assets; then
+            echo "calendar unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "chore: redraw ink calendar [skip ci]"
+          for attempt in 1 2 3; do
+            git push && exit 0
+            git pull --rebase --autostash origin main
+          done
+          exit 1
